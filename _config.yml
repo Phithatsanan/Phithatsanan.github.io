@@ -21,7 +21,7 @@ repository               : "https://github.com/Phithatsanan/Phithatsanan.github.
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "Profile.png"
+  avatar           : "profile.png"
   name             : "Phithatsanan Lertthanasiriwat"
   pronouns         : "He/Him" # example: "she/her"  
   bio              : "Always sleepy"
