@@ -12,21 +12,21 @@ title                    : "Phithatsanan / Home"
 title_separator          : "Roverant"
 name                     : &name "Phithatsanan Lertthanasiriwat"
 description              : &description "KMUTT Student"
-url                      :  https://Phithatsanan.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
-baseurl                  : "https://phithatsanan.readyplayer.me/" # the subpath of your site, e.g. "/blog"
-repository               : "https://github.com/Phithatsanan/Phithatsanan.github.io"
+url                      : https://Phithatsanan.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
+baseurl                  : "" # the subpath of your site, e.g. "/blog"
+repository               : "Phithatsanan/Phithatsanan.github.io"
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "Home.png"
   name             : "Phithatsanan Lertthanasiriwat"
   pronouns         : "He/Him" # example: "she/her"  
   bio              : "Always sleepy"
   location         : "Thailand, Bangkok"
-  employer         : "King Mongkut's University of Technology Thonburi"
+  employer         : "KMUTT"
   uri              : "https://www.kmutt.ac.th/en/" # URL
   email            : "Phithatsanan.lert@kmutt.ac.th" 
 
