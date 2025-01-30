@@ -9,10 +9,10 @@
 # Basic Site Settings
 locale                   : "en-US"
 title                    : "Phithatsanan / Home"
-title_separator          : "-"
+title_separator          : "Roverant"
 name                     : &name "Phithatsanan Lertthanasiriwat"
 description              : &description "KMUTT Student"
-url                      : https://Phithatsanan.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
+url                      : "https://Phithatsanan.github.io" # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
 baseurl                  : "https://phithatsanan.readyplayer.me/" # the subpath of your site, e.g. "/blog"
 repository               : "https://github.com/Phithatsanan/Phithatsanan.github.io"
 
