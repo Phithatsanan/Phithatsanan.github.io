@@ -183,6 +183,7 @@ exclude:
   - README
   - tmp
   - vendor
+  - videos
 keep_files:
   - .git
   - .svn

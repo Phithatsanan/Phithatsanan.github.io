@@ -1,0 +1,21 @@
+{
+  "name": "phithatsanan-intro-remotion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Programmatic intro video for Phithatsanan.github.io, rendered with Remotion.",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts Intro out/intro-remotion.mp4",
+    "still": "remotion still src/index.ts Intro out/intro-remotion.jpg --frame=60"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.200",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.200"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.3",
+    "typescript": "5.4.5"
+  }
+}
