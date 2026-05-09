@@ -1,0 +1,158 @@
+name: render-intro-videos
+
+# Renders the programmatic intro videos (Remotion + Manim) and commits the
+# resulting MP4s and JPG posters back to the same branch under
+# assets/videos/, so Jekyll picks them up on its next build.
+#
+# Triggers:
+#   - any push that touches video sources or this workflow
+#   - manual workflow_dispatch (handy for first run)
+
+on:
+  push:
+    branches:
+      - master
+      - 'claude/**'
+    paths:
+      - 'videos/remotion/**'
+      - 'videos/manim/**'
+      - '.github/workflows/render-intro-videos.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: render-intro-videos-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  remotion:
+    name: Render Remotion intro
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Chrome runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 \
+            libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 \
+            libxkbcommon0 libpango-1.0-0 libcairo2 libasound2t64 \
+            libdrm2 libgtk-3-0
+
+      - name: Install Remotion project
+        working-directory: videos/remotion
+        run: npm install --no-audit --no-fund
+
+      - name: Render MP4
+        working-directory: videos/remotion
+        run: |
+          mkdir -p ../../assets/videos
+          npx remotion render src/index.ts Intro \
+            ../../assets/videos/intro-remotion.mp4 \
+            --concurrency=1
+
+      - name: Render poster (still frame)
+        working-directory: videos/remotion
+        run: |
+          npx remotion still src/index.ts Intro \
+            ../../assets/videos/intro-remotion.jpg \
+            --frame=80 --image-format=jpeg
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: intro-remotion
+          path: |
+            assets/videos/intro-remotion.mp4
+            assets/videos/intro-remotion.jpg
+
+  manim:
+    name: Render Manim intro
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install system dependencies for Manim
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ffmpeg \
+            libcairo2-dev libpango1.0-dev pkg-config \
+            texlive-latex-base texlive-fonts-recommended \
+            texlive-latex-extra dvisvgm
+
+      - name: Install Manim
+        working-directory: videos/manim
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Render MP4
+        working-directory: videos/manim
+        run: |
+          mkdir -p ../../assets/videos
+          manim -qm --media_dir media intro.py Intro
+          # Manim writes to media/videos/intro/720p30/Intro.mp4 by default
+          rendered=$(find media -name 'Intro.mp4' | head -n 1)
+          if [ -z "$rendered" ]; then
+            echo "Manim render produced no output" >&2
+            find media -type f >&2 || true
+            exit 1
+          fi
+          cp "$rendered" ../../assets/videos/intro-manim.mp4
+
+      - name: Render poster (still frame from MP4)
+        run: |
+          ffmpeg -y -ss 00:00:02 -i assets/videos/intro-manim.mp4 \
+            -vframes 1 -q:v 3 assets/videos/intro-manim.jpg
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: intro-manim
+          path: |
+            assets/videos/intro-manim.mp4
+            assets/videos/intro-manim.jpg
+
+  commit:
+    name: Commit rendered videos
+    needs: [remotion, manim]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: intro-remotion
+          path: assets/videos
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: intro-manim
+          path: assets/videos
+
+      - name: Commit and push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/videos/intro-remotion.mp4 assets/videos/intro-remotion.jpg \
+                  assets/videos/intro-manim.mp4    assets/videos/intro-manim.jpg
+          if git diff --staged --quiet; then
+            echo "No video changes to commit."
+            exit 0
+          fi
+          git commit -m "chore(videos): re-render intro videos [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}
