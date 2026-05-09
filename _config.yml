@@ -8,10 +8,10 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "Phithatsanan / Home"
-title_separator          : "Roverant"
+title                    : "Phithatsanan Lertthanasiriwat"
+title_separator          : "|"
 name                     : &name "Phithatsanan Lertthanasiriwat"
-description              : &description "KMUTT Student"
+description              : &description "Application Analyst & Admin Support at Chanwanich"
 url                      : https://Phithatsanan.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "Phithatsanan/Phithatsanan.github.io"
@@ -21,35 +21,35 @@ repository               : "Phithatsanan/Phithatsanan.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "Home.png"
+  avatar           : "profile.png"
   name             : "Phithatsanan Lertthanasiriwat"
-  pronouns         : "He/Him" # example: "she/her"  
-  bio              : "Always sleepy"
-  location         : "Thailand, Bangkok"
-  employer         : "KMUTT"
-  uri              : "https://www.kmutt.ac.th/en/" # URL
-  email            : "Phithatsanan.lert@kmutt.ac.th" 
+  pronouns         : "He/Him"
+  bio              : "Application Analyst & Admin Support at Chanwanich. KMUTT alumnus interested in AI, cybersecurity, and building reliable software."
+  location         : "Bangkok, Thailand"
+  employer         : "Chanwanich"
+  uri              : # Company URL — fill in if you'd like a "Website" link in the sidebar
+  email            : "Phithatsanan@outlook.com"
 
   # Academic websites
-  arxiv            : # URL - Update with the correct link to your profile
+  arxiv            : # URL
   googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
   impactstory      : # URL
   orcid            : "https://orcid.org/0009-0008-3340-3806"
   semantic         : # URL
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  pubmed           : # URL
   researchgate     : # URL
   scopus           : # URL
 
   # Repositories and software development
-  bitbucket        : # Username - Update with your username on the site
+  bitbucket        : # Username
   codepen          : # Username
   dribbble         : # Username
-  github           : "academicpages"
-  kaggle           : # Username  
-  stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
+  github           : "Phithatsanan"
+  kaggle           : # Username
+  stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")
 
   # Social media
-  bluesky          : "bsky.app" # Replace this with you Bluesky username
+  bluesky          : # Username
   facebook         : # Username
   flickr           : # Username
   foursquare       : # Username
@@ -58,7 +58,7 @@ author:
   keybase          : # Username
   instagram        : # Username
   lastfm           : # Username
-  linkedin         : # Username
+  linkedin         : # LinkedIn handle (the part after /in/) — add yours here to show LinkedIn in the sidebar
   mastodon         : # URL
   medium           : # URL
   pinterest        : # Username
